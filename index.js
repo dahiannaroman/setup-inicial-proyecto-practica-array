@@ -54,7 +54,7 @@ class PilaDeLibros {
     }
 }
 
-// Crear 20 libros diferentes
+
 const libros = [
         new Libro("Cien años de soledad", "Gabriel García Márquez", "Ficción", "Español", 25.99, "Tapa dura", "9780060883287", "Una obra maestra sobre la familia Buendía.", "Nuevo", "Bogotá", "1967-05-30", "Sudamericana", 417, "13 x 2.8 x 20 cm", "450g"),
         new Libro("1984", "George Orwell", "Ciencia Ficción", "Inglés", 19.99, "Tapa blanda", "9780451524935", "Una visión distópica del futuro.", "Nuevo", "Nueva York", "1949-06-08", "Secker & Warburg", 328, "13 x 1.8 x 20 cm", "300g"),
@@ -80,13 +80,13 @@ const libros = [
 
 ];
 
-// Crear instancia de la pila de libros
+
 const pilaDeLibros = new PilaDeLibros();
 
-// Agregar los 20 libros a la pila
+
 libros.forEach(libro => pilaDeLibros.push(libro));
 
-// Función para mostrar el menú y manejar las opciones del usuario
+
 function mostrarMenu() {
     document.write("\n--- Menú de la Pila de Libros ---");
     document.write("1. Agregar un libro a la pila");
@@ -138,5 +138,5 @@ function agregarLibro() {
 
 
 
-// Iniciar el menú
+
 mostrarMenu();
