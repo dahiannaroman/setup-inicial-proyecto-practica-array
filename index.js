@@ -56,139 +56,41 @@ function mostrarPila() {
     }
 }
 
-const prompt = require('prompt-sync')();
-
-function menu() {
-    while (true) {
-        console.log("\nMenú:");
-        console.log("1. Agregar libro a la pila (push)");
-        console.log("2. Remover libro de la pila (pop)");
-        console.log("3. Mostrar pila de libros");
-        console.log("4. Salir");
-        const opcion = prompt("Seleccione una opción: ");
-
-        if (opcion === "1") {
-            const titulo = prompt("Título: ");
-            const autor = prompt("Autor: ");
-            const genero = prompt("Género: ");
-            const idioma = prompt("Idioma: ");
-            const precio = parseFloat(prompt("Precio: "));
-            const formato = prompt("Formato: ");
-            const isbn = prompt("ISBN: ");
-            const descripcion = prompt("Descripción: ");
-            const estado = prompt("Estado: ");
-            const ubicacion = prompt("Ubicación: ");
-            const fecha_publicacion = prompt("Fecha de publicación: ");
-            const editorial = prompt("Editorial: ");
-            const paginas = parseInt(prompt("Páginas: "));
-            const dimensiones = prompt("Dimensiones: ");
-            const peso = prompt("Peso: ");
-            
-            const libro = new Libro(titulo, autor, genero, idioma, precio, formato, isbn, descripcion, estado, ubicacion, fecha_publicacion, editorial, paginas, dimensiones, peso);
-            pushLibro(libro);
-
-        } else if (opcion === "2") {
-            popLibro();
-
-        } else if (opcion === "3") {
-            mostrarPila();
-
-        } else if (opcion === "4") {
-            console.log("Saliendo...");
-            break;
-
-        } else {
-            console.log("Opción no válida, por favor intente de nuevo.");
-        }
-    }
+function listarLibrosPorEditorial(editorial) {
+    const librosEditorial = pilaLibros.filter(libro => libro.editorial === editorial);
+    console.log(`Libros de la editorial "${editorial}":`);
+    console.table(librosEditorial);
 }
 
-menu();
-
-// Filtrar libros por una editorial específica
-const librosEditorial1 = pilaLibros.filter(libro => libro.editorial === "Editorial 1");
-
-// Usar el método .map para listar libros por título, autor, editorial y precio
-function listarLibrosPorEditorial() {
-    const lista = librosEditorial1.map(libro => ({
-        titulo: libro.titulo,
-        autor: libro.autor,
-        editorial: libro.editorial,
-        precio: libro.precio
-    }));
-    console.log("Libros por Editorial 1:");
-    console.table(lista);
-}
-
-// Agregar la opción al menú
-function menu() {
-    while (true) {
-        console.log("\nMenú:");
-        console.log("1. Agregar libro a la pila (push)");
-        console.log("2. Remover libro de la pila (pop)");
-        console.log("3. Mostrar pila de libros");
-        console.log("4. Listar libros por Editorial 1");
-        console.log("5. Salir");
-        const opcion = prompt("Seleccione una opción: ");
-
-        if (opcion === "1") {
-            // ... código para agregar libro
-        } else if (opcion === "2") {
-            // ... código para remover libro
-        } else if (opcion === "3") {
-            // ... código para mostrar pila
-        } else if (opcion === "4") {
-            listarLibrosPorEditorial();
-        } else if (opcion === "5") {
-            console.log("Saliendo...");
-            break;
-        } else {
-            console.log("Opción no válida, por favor intente de nuevo.");
-        }
-    }
-}
-
-menu();
-
-// Agregar el atributo descuento a los libros y usar spread operator
-const librosConDescuento = pilaLibros.map(libro => ({
-    ...libro,
-    descuento: (libro.precio * 0.20).toFixed(2)
-}));
-
-// Listar los libros con el descuento aplicado
 function listarLibrosConDescuento() {
-    const lista = librosConDescuento.map(libro => ({
-        titulo: libro.titulo,
-        autor: libro.autor,
-        editorial: libro.editorial,
-        precio: libro.precio,
-        descuento: libro.descuento
+    const librosConDescuento = pilaLibros.map(libro => ({
+        ...libro,
+        descuento: (libro.precio * 0.20).toFixed(2)
     }));
     console.log("Libros con descuento:");
-    console.table(lista);
+    console.table(librosConDescuento);
 }
 
-// Agregar la opción al menú
 function menu() {
     while (true) {
-        console.log("\nMenú:");
-        console.log("1. Agregar libro a la pila (push)");
-        console.log("2. Remover libro de la pila (pop)");
-        console.log("3. Mostrar pila de libros");
-        console.log("4. Listar libros por Editorial 1");
-        console.log("5. Listar libros con descuento");
-        console.log("6. Salir");
+       document.write("\nMenú:");
+       document.write("1. Agregar libro a la pila (push)");
+       document.write("2. Remover libro de la pila (pop)");
+       document.write("3. Mostrar pila de libros");
+       document.write("4. Listar libros por una editorial específica");
+       document.write("5. Listar libros con descuento");
+       document.write("6. Salir");
         const opcion = prompt("Seleccione una opción: ");
 
         if (opcion === "1") {
-            // ... código para agregar libro
+            // Capturar datos del libro y llamar a la función pushLibro
         } else if (opcion === "2") {
-            // ... código para remover libro
+            popLibro();
         } else if (opcion === "3") {
-            // ... código para mostrar pila
+            mostrarPila();
         } else if (opcion === "4") {
-            listarLibrosPorEditorial();
+            const editorial = prompt("Ingrese el nombre de la editorial:");
+            listarLibrosPorEditorial(editorial);
         } else if (opcion === "5") {
             listarLibrosConDescuento();
         } else if (opcion === "6") {
