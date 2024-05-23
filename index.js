@@ -18,74 +18,40 @@ class Libro {
     }
 }
 
-// Definición de la pila de libros
-let pilaLibros = [];
+const pilaLibros = [];
 
-// Función para agregar un libro a la pila
-function agregarLibro(libro) {
+// Definir 20 libros diferentes
+const librosIniciales = [
+    new Libro("Título1", "Autor1", "Ficción", "Español", 19.99, "Tapa dura", "1234567890123", "Descripción 1", "Nuevo", "Ubicación 1", "2022-01-01", "Editorial 1", 300, "15x2x20 cm", "500g"),
+    new Libro("Título2", "Autor2", "No ficción", "Inglés", 15.99, "Tapa blanda", "1234567890124", "Descripción 2", "Usado", "Ubicación 2", "2021-05-15", "Editorial 2", 250, "14x1.5x21 cm", "400g"),
+    // Añadir más libros aquí...
+];
+
+pilaLibros.push(...librosIniciales);
+
+function pushLibro(libro) {
     pilaLibros.push(libro);
-    console.log(`El libro ${libroQuitado.titulo} ha sido quitado de la pila.`);
-
-
+    console.log(`Libro "${libro.titulo}" agregado a la pila.`);
 }
 
-// Función para quitar un libro de la pila
-function quitarLibro() {
-    if (pilaLibros.length === 0) {
-        console.log("La pila de libros está vacía.");
+function popLibro() {
+    const libro = pilaLibros.pop();
+    if (libro) {
+        console.log(`Libro "${libro.titulo}" removido de la pila.`);
+        return libro;
     } else {
-        const libroQuitado = pilaLibros.pop();
-        console.log(`El libro ${libro.titulo} ha sido agregado a la pila.`);
-
+        console.log("La pila está vacía.");
+        return null;
     }
 }
 
-// Función para mostrar la pila actual de libros
 function mostrarPila() {
     if (pilaLibros.length === 0) {
-        console.log("La pila de libros está vacía.");
+        console.log("La pila está vacía.");
     } else {
-        console.log("Pila actual de libros:");
-        pilaLibros.forEach(libro => {
-            console.log(`El libro ${libroQuitado.titulo} ha sido quitado de la pila.`);
-
+        console.log("Pila de libros:");
+        pilaLibros.forEach((libro, index) => {
+            console.log(`${index + 1}. ${libro.titulo} por ${libro.autor}`);
         });
     }
 }
-
-// Función para mostrar el menú y manejar la interacción del usuario
-function mostrarMenu() {
-    console.log("Bienvenido al gestor de libros:");
-    console.log("1. Agregar un libro a la pila");
-    console.log("2. Quitar un libro de la pila");
-    console.log("3. Mostrar la pila actual de libros");
-    console.log("4. Salir");
-
-    const opcion = parseInt(prompt("Seleccione una opción:"));
-
-    switch (opcion) {
-        case 1:
-            const titulo = prompt("Ingrese el título del libro:");
-            const autor = prompt("Ingrese el autor del libro:");
-            // Aquí continuarías solicitando los demás atributos del libro
-            const nuevoLibro = new Libro(titulo, autor, /* otros atributos */);
-            agregarLibro(nuevoLibro);
-            break;
-        case 2:
-            quitarLibro();
-            break;
-        case 3:
-            mostrarPila();
-            break;
-        case 4:
-            console.log("Saliendo del programa...");
-            return; // Salir del bucle
-        default:
-            console.log("Opción no válida. Por favor, seleccione una opción válida.");
-    }
-
-    mostrarMenu(); // Volver a mostrar el menú
-}
-
-// Iniciar la aplicación mostrando el menú
-mostrarMenu();
