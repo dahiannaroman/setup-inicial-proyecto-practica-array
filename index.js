@@ -55,3 +55,52 @@ function mostrarPila() {
         });
     }
 }
+
+const prompt = require('prompt-sync')();
+
+function menu() {
+    while (true) {
+        console.log("\nMenú:");
+        console.log("1. Agregar libro a la pila (push)");
+        console.log("2. Remover libro de la pila (pop)");
+        console.log("3. Mostrar pila de libros");
+        console.log("4. Salir");
+        const opcion = prompt("Seleccione una opción: ");
+
+        if (opcion === "1") {
+            const titulo = prompt("Título: ");
+            const autor = prompt("Autor: ");
+            const genero = prompt("Género: ");
+            const idioma = prompt("Idioma: ");
+            const precio = parseFloat(prompt("Precio: "));
+            const formato = prompt("Formato: ");
+            const isbn = prompt("ISBN: ");
+            const descripcion = prompt("Descripción: ");
+            const estado = prompt("Estado: ");
+            const ubicacion = prompt("Ubicación: ");
+            const fecha_publicacion = prompt("Fecha de publicación: ");
+            const editorial = prompt("Editorial: ");
+            const paginas = parseInt(prompt("Páginas: "));
+            const dimensiones = prompt("Dimensiones: ");
+            const peso = prompt("Peso: ");
+            
+            const libro = new Libro(titulo, autor, genero, idioma, precio, formato, isbn, descripcion, estado, ubicacion, fecha_publicacion, editorial, paginas, dimensiones, peso);
+            pushLibro(libro);
+
+        } else if (opcion === "2") {
+            popLibro();
+
+        } else if (opcion === "3") {
+            mostrarPila();
+
+        } else if (opcion === "4") {
+            console.log("Saliendo...");
+            break;
+
+        } else {
+            console.log("Opción no válida, por favor intente de nuevo.");
+        }
+    }
+}
+
+menu();
