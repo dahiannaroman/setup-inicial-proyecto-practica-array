@@ -22,6 +22,7 @@ class Libro {
 // Pila
 const pilaLibros = [];
 
+
 function crearLibro() {
     const nuevoLibro = new Libro(
         "Titulo ejemplo",
@@ -218,3 +219,6 @@ for (let i = 0; i < 10; i++) {
 
 // Iniciar el menú
 menu();
+
+
+
