@@ -45,57 +45,101 @@ function crearLibro() {
 
 function agregarLibro(libro) {
     pilaLibros.push(libro);
-    console.log("Libro agregado:", libro);
+    console.log("Libro agregado:");
+    console.table([libro]);
 }
+
 
 function quitarLibro() {
     const libroRemovido = pilaLibros.pop();
     if (libroRemovido) {
-        console.log("Libro removido:", libroRemovido);
+        console.log("Libro removido:");
+        console.table([libroRemovido]);
     } else {
         console.log("No hay libros en la pila.");
     }
 }
 
 function mostrarPila() {
-    console.log("Pila actual de libros:", pilaLibros);
+    console.log("Pila actual de libros:");
+    console.table(pilaLibros);
 }
 
 // Función para listar los libros
 function listarLibros() {
-    pilaLibros.forEach(libro => {
-        console.log(`Título: ${libro.titulo}, Autor: ${libro.autor}, Editorial: ${libro.editorial}, Precio: ${libro.precio}`);
-    });
+    console.log("Lista de libros:");
+    console.table(pilaLibros);
 }
 
 // Función para listar libros con descuento
 function listarLibrosConDescuento() {
-    pilaLibros.filter(libro => libro.descuento > 0).forEach(libro => {
-        console.log(`Título: ${libro.titulo}, Autor: ${libro.autor}, Precio con descuento: ${libro.precio - libro.descuento}`);
-    });
+    const librosConDescuento = pilaLibros.map(libro => ({
+        ...libro,
+        descuento: libro.precio * 0.2
+    }));
+    console.log("Libros con descuento:");
+    console.table(librosConDescuento);
 }
 
 // Función para listar libros caros y un resumen
 function librosCarosYResumen() {
-    const librosCaros = pilaLibros.filter(libro => libro.precio > 20);
-    librosCaros.forEach(libro => {
-        console.log(`Título: ${libro.titulo}, Precio: ${libro.precio}`);
-    });
-    console.log(`Total de libros caros: ${librosCaros.length}`);
+    const librosCaros = pilaLibros.filter(libro => libro.precio > 50);
+    const resumenLibrosCaros = librosCaros.map(libro => ({
+        titulo: libro.titulo,
+        autor: libro.autor,
+        editorial: libro.editorial,
+        paginas: libro.paginas
+    }));
+    console.log("Resumen de libros caros:");
+    console.table(resumenLibrosCaros);
 }
 
 // Función para ordenar libros por número de páginas
 function ordenarLibrosPorPaginas() {
-    const librosOrdenados = [...pilaLibros].sort((a, b) => a.paginas - b.paginas);
-    librosOrdenados.forEach(libro => {
-        console.log(`Título: ${libro.titulo}, Páginas: ${libro.paginas}`);
-    });
+    const librosOrdenados = [...pilaLibros].sort((a, b) => b.paginas - a.paginas);
+    console.log("Libros ordenados por páginas de mayor a menor:");
+    console.table(librosOrdenados);
 }
 
 // Función para resúmenes encadenados
 function resumenesEncadenados() {
-    const resúmenes = pilaLibros.map(libro => `Título: ${libro.titulo}, Páginas: ${libro.paginas}`).join(' | ');
-    console.log(resúmenes);
+    // Libros caros por título (mayores de 11 dólares)
+    const librosCarosPorTitulo = pilaLibros.filter(libro => libro.precio > 11).map(libro => ({
+        titulo: libro.titulo,
+        autor: libro.autor,
+        precio: libro.precio
+    }));
+    console.log("Libros caros por título:");
+    console.table(librosCarosPorTitulo);
+
+    // Libros con menos de 100 páginas
+    const librosMenosDe100Paginas = pilaLibros.filter(libro => libro.paginas < 100).map(libro => ({
+        titulo: libro.titulo,
+        autor: libro.autor,
+        editorial: libro.editorial,
+        paginas: libro.paginas
+    }));
+    console.log("Libros con menos de 100 páginas:");
+    console.table(librosMenosDe100Paginas);
+
+    // Libros caros mayores a 20 dólares ordenados de mayor a menor por precio
+    const librosCarosOrdenados = pilaLibros.filter(libro => libro.precio > 20).sort((a, b) => b.precio - a.precio).map(libro => ({
+        titulo: libro.titulo,
+        autor: libro.autor,
+        precio: libro.precio
+    }));
+    console.log("Libros caros ordenados de mayor a menor:");
+    console.table(librosCarosOrdenados);
+
+    // Libros por número más alto de páginas ordenados de mayor a menor
+    const librosPorPaginas = pilaLibros.sort((a, b) => b.paginas - a.paginas).map(libro => ({
+        titulo: libro.titulo,
+        autor: libro.autor,
+        editorial: libro.editorial,
+        paginas: libro.paginas
+    }));
+    console.log("Libros por número más alto de páginas ordenados de mayor a menor:");
+    console.table(librosPorPaginas);
 }
 
 // Menú
@@ -152,9 +196,7 @@ for (let i = 1; i <= 20; i++) {
     agregarLibro(new Libro(`Título ${i}`, `Autor ${i}`, `Género ${i}`, `Idioma ${i}`, i * 5, `Formato ${i}`, `ISBN${i}`, `Descripción ${i}`, `Estado ${i}`, `Ubicación ${i}`, `2024-01-01`, `Editorial ${i}`, i * 10, `${i * 2} x ${i * 3} x ${i * 4} cm`, `${i * 100} gramos`));
 }
 
-menu();
-
-// Modificar el array para incluir 5 libros de una editorial específica
+// Ejecutar funciones adicionales después de inicializar la pila de libros
 const librosPorEditorial = pilaLibros.filter(libro => libro.editorial === "Editorial 1").slice(0, 5);
 
 // Usar el método .map para listar los libros por Título, Autor, Editorial y Precio
@@ -165,41 +207,14 @@ const listaLibrosMap = librosPorEditorial.map(libro => ({
     Precio: libro.precio
 }));
 console.log("Libros de Editorial 1:");
-console.log(listaLibrosMap);
+console.table(listaLibrosMap);
 
 // Crear 10 iteraciones diferentes manteniendo el atributo Titulo
 for (let i = 0; i < 10; i++) {
     let libro = new Libro(`Título${i+1}`, `Autor${i+1}`, "Ficción", "Español", 15.99 + i, "Tapa blanda", `123456789${i}`, `Descripción${i+1}`, "Nuevo", "Ubicación1", `2020-01-0${i+1}`, "Editorial 1", 300 + i, "15x20x2", "0.5kg");
-    console.log(`Libro iteración ${i+1}: ${libro.titulo}`);
+    console.log(`Libro iteración ${i+1}:`);
+    console.table([libro]);
 }
 
-//agregar descuento del 20%
-
-function listarLibrosConDescuento() {
-    const librosConDescuento = pilaLibros.map(libro => ({
-        ...libro,
-        descuento: libro.precio * 0.2
-    }));
-    console.log("Libros con descuento:", librosConDescuento);
-}
-
-//filtrar libros caros y resumen
-
-function librosCarosYResumen() {
-    const librosCaros = pilaLibros.filter(libro => libro.precio > 50);
-    const resumenLibrosCaros = librosCaros.map(libro => ({
-        titulo: libro.titulo,
-        autor: libro.autor,
-        editorial: libro.editorial,
-        paginas: libro.paginas
-    }));
-    console.log("Resumen de libros caros:", resumenLibrosCaros);
-}
-
-//ordenar libros por numeros de paginas
-
-function ordenarLibrosPorPaginas() {
-    const librosOrdenados = [...pilaLibros].sort((a,b) => b.paginas - a.paginas);
-    console.log("Libros ordenados por páginas de mayor a menor:", librosOrdenados);
-    
-}
+// Iniciar el menú
+menu();
