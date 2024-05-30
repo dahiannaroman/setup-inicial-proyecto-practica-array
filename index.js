@@ -195,3 +195,11 @@ function librosCarosYResumen() {
     }));
     console.log("Resumen de libros caros:", resumenLibrosCaros);
 }
+
+//ordenar libros por numeros de paginas
+
+function ordenarLibrosPorPaginas() {
+    const librosOrdenados = [...pilaLibros].sort((a,b) => b.paginas - a.paginas);
+    console.log("Libros ordenados por páginas de mayor a menor:", librosOrdenados);
+    
+}
