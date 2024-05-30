@@ -172,3 +172,26 @@ for (let i = 0; i < 10; i++) {
     let libro = new Libro(`Título${i+1}`, `Autor${i+1}`, "Ficción", "Español", 15.99 + i, "Tapa blanda", `123456789${i}`, `Descripción${i+1}`, "Nuevo", "Ubicación1", `2020-01-0${i+1}`, "Editorial 1", 300 + i, "15x20x2", "0.5kg");
     console.log(`Libro iteración ${i+1}: ${libro.titulo}`);
 }
+
+//agregar descuento del 20%
+
+function listarLibrosConDescuento() {
+    const librosConDescuento = pilaLibros.map(libro => ({
+        ...libro,
+        descuento: libro.precio * 0.2
+    }));
+    console.log("Libros con descuento:", librosConDescuento);
+}
+
+//filtrar libros caros y resumen
+
+function librosCarosYResumen() {
+    const librosCaros = pilaLibros.filter(libro => libro.precio > 50);
+    const resumenLibrosCaros = librosCaros.map(libro => ({
+        titulo: libro.titulo,
+        autor: libro.autor,
+        editorial: libro.editorial,
+        paginas: libro.paginas
+    }));
+    console.log("Resumen de libros caros:", resumenLibrosCaros);
+}
